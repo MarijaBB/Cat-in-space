@@ -7,25 +7,27 @@ class Cheese:
         self.image = pygame.transform.scale(image, CHEESE_SIZE)
         self.timer = 0
         self.cheeses = []
-        self.rect = self.image.get_rect()
         
-    def add_cheese(self):         
+    def add(self):         
         self.timer += 1
-        if self.timer > 100:
+        if self.timer > 50:
             self.timer = 0
-            y_pos = random.randint(0, HEIGHT - CHEESE_SIZE[0] - 10)
-            self.rect.center = (WIDTH, y_pos)
-            self.cheeses.append(self.rect)
+            y_pos = random.randint(CHEESE_SIZE[0], HEIGHT - CHEESE_SIZE[0])
+            rect = self.image.get_rect()
+            rect.topleft = (WIDTH, y_pos)
             
-    def move_cheese(self, screen, speed, cat_rect) -> int:
-        for ch in self.cheeses[:]:
+            self.cheeses.append((self.image, rect))
+       
+    def move(self, screen, speed, cat_rect) -> int:
+        score = 0
+        for image, ch in self.cheeses[:]:
             ch.x -= speed
-            screen.blit(self.image, ch)  
+            screen.blit(image, ch)  
             if ch.colliderect(cat_rect):
-                self.cheeses.remove(ch)
-                return 1
+                self.cheeses.remove((image, ch))
+                score+=1
             if ch.right < 0:
-                self.cheeses.remove(ch)
-        return 0
-    
+                self.cheeses.remove((image, ch))
+        return score
+
     
