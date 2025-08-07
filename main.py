@@ -9,7 +9,7 @@ from messages import *
 from obstacle import *
 from background import *
 pygame.init()
-
+pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 

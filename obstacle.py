@@ -13,14 +13,15 @@ class Obstacle:
             filename = os.fsdecode(file)
             if filename.startswith("planet"): 
                 planet_image = pygame.image.load(f"images/{filename}")
-                planet_image = pygame.transform.scale(planet_image, OBSTACLE_SIZE)
+                planet_image = pygame.transform.scale(planet_image, OBSTACLE_SIZE).convert()
                 self.images.append(planet_image)
         self.timer = 0
         self.obstacles = []
+        self.sound = pygame.mixer.Sound("assets/Nudge.ogg")
 
     def add(self):
         self.timer += 1
-        if self.timer > 30:
+        if self.timer > 40:
             self.timer = 0
             y_pos = random.randint(OBSTACLE_SIZE[0], HEIGHT - OBSTACLE_SIZE[0])
 
@@ -36,6 +37,7 @@ class Obstacle:
             screen.blit(planet_image, obs)
 
             if obs.colliderect(cat_rect):
+                self.sound.play()
                 game_over = True
             if obs.right < 0:
                 self.obstacles.remove((planet_image, obs))

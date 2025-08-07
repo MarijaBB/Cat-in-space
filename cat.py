@@ -3,7 +3,7 @@ from settings import *
 
 class Cat:
     def __init__(self, image):
-        self.image = pygame.transform.scale(image, CAT_SIZE).convert_alpha()
+        self.image = pygame.transform.scale(image, CAT_SIZE).convert()
         self.rect= self.image.get_rect()
         self.rect.center = (100, HEIGHT // 2)
         self.speed = 5

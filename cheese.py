@@ -4,9 +4,10 @@ import random
 
 class Cheese:
     def __init__(self, image):
-        self.image = pygame.transform.scale(image, CHEESE_SIZE)
+        self.image = pygame.transform.scale(image, CHEESE_SIZE).convert()
         self.timer = 0
         self.cheeses = []
+        self.sound = pygame.mixer.Sound("assets/Tones.ogg")
         
     def add(self):         
         self.timer += 1
@@ -24,6 +25,7 @@ class Cheese:
             ch.x -= speed
             screen.blit(image, ch)  
             if ch.colliderect(cat_rect):
+                self.sound.play()
                 self.cheeses.remove((image, ch))
                 score+=1
             if ch.right < 0:
