@@ -10,7 +10,6 @@ You play as a cat in astronomer's suit floating through space. Avoid planets and
 - 🔥 Boss level begins at score 30
 - 🔊 Sound effects 
 - 🔁 Press `R` to restart after game is over
-- 
 
 ## Techologies
 - Python	- the main programming language used for game development
