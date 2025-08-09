@@ -42,7 +42,7 @@ while True:
     cat.move(keys)
     
     if not game_over:
-        if score < 10:
+        if score < BOSS_LEVEL_TRESHOLD:
             planet.add()  
             game_over=planet.move(speed, screen, cat.rect, game_over)
 
@@ -50,7 +50,7 @@ while True:
             score += cheese.move(screen, speed, cat.rect)
             if score != 0 and score % 5 == 0:
                 speed += ACCELERATION
-        if score >= 10:
+        if score >= BOSS_LEVEL_TRESHOLD:
             dog.add()
             game_over = dog.move(speed, screen, cat.rect, game_over)
             
