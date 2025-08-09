@@ -11,7 +11,7 @@ class Boss:
         
     def add(self):         
         self.timer += 1
-        if self.timer > 110:
+        if self.timer > 250:
             self.timer = 0
             y_pos = random.randint(50, HEIGHT - BOSS_SIZE[0])
             rect = self.image.get_rect()
@@ -22,6 +22,11 @@ class Boss:
     def move(self, speed, screen, cat_rect, game_over) -> int:
         for image, f in self.bosses[:]:
             f.x -= speed
+            boss_speed_y = 1
+            if f.centery < cat_rect.centery:
+                f.y += boss_speed_y
+            elif f.centery > cat_rect.centery:
+                f.y -= boss_speed_y
             screen.blit(image, f)  
             if f.colliderect(cat_rect):
                 self.sound.play()

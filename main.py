@@ -1,15 +1,15 @@
 import pygame
-import random
 import sys
-import os
 from settings import *
 from cat import *
 from cheese import *
-from messages import *
+from helper_functions import *
 from obstacle import *
 from background import *
 from boss import *
+from database.highscore import *
 
+init_database_table()
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -42,7 +42,7 @@ while True:
     cat.move(keys)
     
     if not game_over:
-        if score < 30:
+        if score < 10:
             planet.add()  
             game_over=planet.move(speed, screen, cat.rect, game_over)
 
@@ -50,7 +50,7 @@ while True:
             score += cheese.move(screen, speed, cat.rect)
             if score != 0 and score % 5 == 0:
                 speed += ACCELERATION
-        if score >= 30:
+        if score >= 10:
             dog.add()
             game_over = dog.move(speed, screen, cat.rect, game_over)
             
@@ -59,7 +59,7 @@ while True:
     show_score(score,screen)
     
     if game_over:
-        (score, game_over) =  finish(keys, planet.obstacles, cheese.cheeses, score, game_over, screen)
+        (score, game_over) =  finish(keys, planet.obstacles, cheese.cheeses, dog.bosses, score, game_over, screen)
         speed = START_SPEED
 
     pygame.display.flip()

@@ -1,0 +1,81 @@
+import sys
+import pygame
+from settings import *
+from database.highscore import *
+
+def draw_text(text, x, y, screen, color=WHITE):
+    font = pygame.font.SysFont(None, 40)
+    img = font.render(text, True, color)
+    screen.blit(img, (x, y))
+
+def show_score(score, screen):
+    draw_text(f"Score: {score}", 10, 10, screen)
+
+name_entered = False
+
+def finish(keys, obstacles, bosses, cheeses, score, game_over, screen):
+    global name_entered
+    
+    if game_over and not name_entered: 
+        name = get_player_name(screen, pygame.font.SysFont(None, 40))
+        save_score(name, score)
+        name_entered = True
+    
+    screen.fill((0, 0, 0))
+    draw_high_scores(screen, pygame.font.SysFont(None, 40))
+    draw_text("Game Over! Press R to Restart", WIDTH // 2 - 150, HEIGHT // 2, screen)
+    
+    if keys[pygame.K_r]:
+        obstacles.clear()
+        cheeses.clear()
+        bosses.clear()
+        score = 0
+        game_over = False
+        name_entered = False
+    
+    return (score, game_over)
+
+def draw_high_scores(screen, font):
+    scores = get_high_scores()
+    y = 100 
+    for i, (name, score) in enumerate(scores):
+        text_surface = font.render(f"{i+1}. {name} - {score}", True, (255, 255, 255))
+        screen.blit(text_surface, (100, y))
+        y += 40 
+
+def get_player_name(screen, font):
+    name = ""
+    typing = True
+    
+    while typing:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()  
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    if name.strip(): 
+                        typing = False
+                elif event.key == pygame.K_BACKSPACE:
+                    name = name[:-1]
+                else:
+                    if event.unicode.isprintable() and len(name) < 20:
+                        name += event.unicode
+        
+        screen.fill((0, 0, 0))
+        
+        prompt_text = font.render("Enter your name: ", True, WHITE)
+        name_text = font.render(name + "|", True, WHITE)  # Add cursor
+        
+        screen.blit(prompt_text, (50, 50))
+        screen.blit(name_text, (50, 100))
+        
+        instruction = font.render("Press ENTER when done", True, (200, 200, 200))
+        screen.blit(instruction, (50, 150))
+        
+        pygame.display.flip() 
+        
+    return name.strip()  
+
+
+        
