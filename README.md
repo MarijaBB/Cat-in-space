@@ -1,7 +1,10 @@
+# Three rules
+1. EAT
+2. SURVIVE
+3. BEAT YOUR HIGHEST RECORD
 ## 🎮 Gameplay
 You play as a cat in astronomer's suit floating through space. Avoid planets and collect as much cheese as you can! <br> Meet the final boss: THE DOGSTROYER of catkind.
-
-### Rules
+### Controls and logic
 
 - 🔼🔽 ◀️ ▶️ Move Up / Down / Left / Right or use keyboard buttons `W`, `A`, `S`, `D`
 - 🧀 Collect cheese for points  
