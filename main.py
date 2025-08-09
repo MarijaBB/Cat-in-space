@@ -7,9 +7,8 @@ from helper_functions import *
 from obstacle import *
 from background import *
 from boss import *
-from database.highscore import *
 
-init_database_table()
+
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -24,6 +23,7 @@ planet = Obstacle("assets/images")
 cheese = Cheese(pygame.image.load("assets/images/cheese.png"))
 
 dog = Boss(pygame.image.load("assets/images/dog.png"))
+
 score = 0
 
 speed = START_SPEED
@@ -53,6 +53,9 @@ while True:
         if score >= BOSS_LEVEL_TRESHOLD:
             dog.add()
             game_over = dog.move(speed, screen, cat.rect, game_over)
+            
+            cheese.add()  
+            score += cheese.move(screen, speed, cat.rect)
             
     cat.draw(screen)  
 

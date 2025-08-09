@@ -1,8 +1,7 @@
 import sys
 import pygame
 from settings import *
-from database.highscore import *
-
+from highscores import *
 def draw_text(text, x, y, screen, color=WHITE):
     font = pygame.font.SysFont(None, 40)
     img = font.render(text, True, color)
@@ -15,10 +14,11 @@ name_entered = False
 
 def finish(keys, obstacles, bosses, cheeses, score, game_over, screen):
     global name_entered
-    
-    if game_over and not name_entered: 
+
+    max_saved_score = get_max_score()
+    if game_over and not name_entered and max_saved_score < score: 
         name = get_player_name(screen, pygame.font.SysFont(None, 40))
-        save_score(name, score)
+        add_score(name, score)
         name_entered = True
     
     screen.fill((0, 0, 0))
@@ -36,10 +36,10 @@ def finish(keys, obstacles, bosses, cheeses, score, game_over, screen):
     return (score, game_over)
 
 def draw_high_scores(screen, font):
-    scores = get_high_scores()
+    scores = get_highscores()
     y = 100 
-    for i, (name, score) in enumerate(scores):
-        text_surface = font.render(f"{i+1}. {name} - {score}", True, (255, 255, 255))
+    for i, row in enumerate(scores):
+        text_surface = font.render(f"{i+1}. {row['name']} - {row['score']} ", True, WHITE)
         screen.blit(text_surface, (100, y))
         y += 40 
 
@@ -64,7 +64,7 @@ def get_player_name(screen, font):
         
         screen.fill((0, 0, 0))
         
-        prompt_text = font.render("Enter your name: ", True, WHITE)
+        prompt_text = font.render("New high score. Enter your name: ", True, WHITE)
         name_text = font.render(name + "|", True, WHITE)  # Add cursor
         
         screen.blit(prompt_text, (50, 50))
