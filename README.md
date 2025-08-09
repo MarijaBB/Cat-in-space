@@ -3,7 +3,7 @@ You play as a cat in astronomer's suit floating through space. Avoid planets and
 
 ### Rules
 
-- 🔼🔽 ◀️ ▶️ Move Up / Down / Left / Right or use keyboard buttons W, A, S, D
+- 🔼🔽 ◀️ ▶️ Move Up / Down / Left / Right or use keyboard buttons `W`, `A`, `S`, `D`
 - 🧀 Collect cheese for points  
 - 💥 Game over if you hit a planet
 - ⏩ Speed gradually increases over time
