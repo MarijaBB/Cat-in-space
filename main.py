@@ -8,21 +8,25 @@ from cheese import *
 from messages import *
 from obstacle import *
 from background import *
+from boss import *
+
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
-background = Background(pygame.image.load("images/background.jpg").convert())
-cat = Cat(pygame.image.load("images/cat.png"))
+background = Background(pygame.image.load("assets/images/background.jpg"))
 
-planet = Obstacle("images")
+cat = Cat(pygame.image.load("assets/images/cat.png"))
+
+planet = Obstacle("assets/images")
         
-cheese = Cheese(pygame.image.load("images/cheese.png"))
+cheese = Cheese(pygame.image.load("assets/images/cheese.png"))
 
+dog = Boss(pygame.image.load("assets/images/dog.png"))
 score = 0
 
-speed = 5
+speed = START_SPEED
 
 game_over = False
 
@@ -38,18 +42,25 @@ while True:
     cat.move(keys)
     
     if not game_over:
-        planet.add()  
-        game_over=planet.move(speed, screen, cat.rect, game_over)
+        if score < 30:
+            planet.add()  
+            game_over=planet.move(speed, screen, cat.rect, game_over)
 
-        cheese.add()  
-        score += cheese.move(screen, speed, cat.rect)
-
+            cheese.add()  
+            score += cheese.move(screen, speed, cat.rect)
+            if score != 0 and score % 5 == 0:
+                speed += ACCELERATION
+        if score >= 30:
+            dog.add()
+            game_over = dog.move(speed, screen, cat.rect, game_over)
+            
     cat.draw(screen)  
 
     show_score(score,screen)
     
     if game_over:
         (score, game_over) =  finish(keys, planet.obstacles, cheese.cheeses, score, game_over, screen)
+        speed = START_SPEED
 
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(100)

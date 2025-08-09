@@ -4,14 +4,14 @@ import random
 
 class Cheese:
     def __init__(self, image):
-        self.image = pygame.transform.scale(image, CHEESE_SIZE).convert()
+        self.image = pygame.transform.scale(image, CHEESE_SIZE)
         self.timer = 0
         self.cheeses = []
-        self.sound = pygame.mixer.Sound("assets/Tones.ogg")
+        self.sound = pygame.mixer.Sound("assets/sounds/Tones.ogg")
         
     def add(self):         
         self.timer += 1
-        if self.timer > 50:
+        if self.timer > 100:
             self.timer = 0
             y_pos = random.randint(CHEESE_SIZE[0], HEIGHT - CHEESE_SIZE[0])
             rect = self.image.get_rect()
