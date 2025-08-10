@@ -33,10 +33,7 @@ game_over = False
 while True:
     background.show_and_move(screen)
     
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+    handle_event_quit_game()
 
     keys = pygame.key.get_pressed()
     cat.move(keys)

@@ -2,8 +2,11 @@ import sys
 import pygame
 from settings import *
 from highscores import *
+
+pygame.font.init()
+font = pygame.font.SysFont(None, 40)
+
 def draw_text(text, x, y, screen, color=WHITE):
-    font = pygame.font.SysFont(None, 40)
     img = font.render(text, True, color)
     screen.blit(img, (x, y))
 
@@ -17,12 +20,12 @@ def finish(keys, obstacles, bosses, cheeses, score, game_over, screen):
 
     max_saved_score = get_max_score()
     if game_over and not name_entered and max_saved_score < score: 
-        name = get_player_name(screen, pygame.font.SysFont(None, 40))
+        name = get_player_name(screen)
         add_score(name, score)
         name_entered = True
     
     screen.fill((0, 0, 0))
-    draw_high_scores(screen, pygame.font.SysFont(None, 40))
+    draw_high_scores(screen)
     draw_text("Game Over! Press R to Restart", WIDTH // 2 - 150, HEIGHT // 2, screen)
     
     if keys[pygame.K_r]:
@@ -35,7 +38,7 @@ def finish(keys, obstacles, bosses, cheeses, score, game_over, screen):
     
     return (score, game_over)
 
-def draw_high_scores(screen, font):
+def draw_high_scores(screen):
     scores = get_highscores()
     y = 100 
     for i, row in enumerate(scores):
@@ -43,7 +46,7 @@ def draw_high_scores(screen, font):
         screen.blit(text_surface, (100, y))
         y += 40 
 
-def get_player_name(screen, font):
+def get_player_name(screen):
     name = ""
     typing = True
     
@@ -65,7 +68,7 @@ def get_player_name(screen, font):
         screen.fill((0, 0, 0))
         
         prompt_text = font.render("New high score. Enter your name: ", True, WHITE)
-        name_text = font.render(name + "|", True, WHITE)  # Add cursor
+        name_text = font.render(name + "|", True, WHITE)  
         
         screen.blit(prompt_text, (50, 50))
         screen.blit(name_text, (50, 100))
@@ -78,4 +81,8 @@ def get_player_name(screen, font):
     return name.strip()  
 
 
-        
+def handle_event_quit_game():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()        

@@ -35,12 +35,11 @@ def add_score(name, score):
     return scores
 
 def get_highscores():
-    return load_highscores()
+    rows = load_highscores()
+    return [el for el in rows if el['score']>0]
 
 def get_max_score():
     names_and_scores = load_highscores()
     names_and_scores.sort(key=lambda x: x["score"], reverse = True)
     max_score = names_and_scores[0]['score']
     return max_score
-
-print(get_max_score())

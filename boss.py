@@ -27,6 +27,7 @@ class Boss:
                 f.y += boss_speed_y
             elif f.centery > cat_rect.centery:
                 f.y -= boss_speed_y
+                
             screen.blit(image, f)  
             if f.colliderect(cat_rect):
                 self.sound.play()
