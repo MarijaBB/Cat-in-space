@@ -38,8 +38,8 @@ def get_highscores():
     rows = load_highscores()
     return [el for el in rows if el['score']>0]
 
-def get_max_score():
+def get_min_score():
     names_and_scores = load_highscores()
-    names_and_scores.sort(key=lambda x: x["score"], reverse = True)
+    names_and_scores.sort(key=lambda x: x["score"])
     max_score = names_and_scores[0]['score']
     return max_score

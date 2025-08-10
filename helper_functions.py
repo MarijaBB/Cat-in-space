@@ -18,8 +18,8 @@ name_entered = False
 def finish(keys, obstacles, bosses, cheeses, score, game_over, screen):
     global name_entered
 
-    max_saved_score = get_max_score()
-    if game_over and not name_entered and max_saved_score < score: 
+    min_saved_score = get_min_score()
+    if game_over and not name_entered and min_saved_score < score: 
         name = get_player_name(screen)
         add_score(name, score)
         name_entered = True
