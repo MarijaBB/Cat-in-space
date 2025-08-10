@@ -22,7 +22,7 @@ class Boss:
     def move(self, speed, screen, cat_rect, game_over) -> int:
         for image, r in self.bosses[:]:
             r.x -= speed
-            boss_speed_y = 0.7
+            boss_speed_y = 0.6
             if r.centery < cat_rect.centery:
                 r.y += boss_speed_y
             elif r.centery > cat_rect.centery:

@@ -20,16 +20,18 @@ class Cheese:
             self.cheeses.append((self.image, rect))
        
     def move(self, screen, speed, cat_rect) -> int:
-        score = 0
+        point_for_collision = 0
+        flag = False
         for image, ch in self.cheeses[:]:
             ch.x -= speed
             screen.blit(image, ch)  
             if ch.colliderect(cat_rect):
                 self.sound.play()
                 self.cheeses.remove((image, ch))
-                score+=1
+                point_for_collision += 1
+                flag = True
             if ch.right < 0:
                 self.cheeses.remove((image, ch))
-        return score
+        return point_for_collision, flag
 
     

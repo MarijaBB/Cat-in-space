@@ -30,6 +30,8 @@ speed = START_SPEED
 
 game_over = False
 
+flag = True
+
 while True:
     background.show_and_move(screen)
     
@@ -42,17 +44,16 @@ while True:
         if score < BOSS_LEVEL_TRESHOLD:
             planet.add()  
             game_over=planet.move(speed, screen, cat.rect, game_over)
-
-            cheese.add()  
-            score += cheese.move(screen, speed, cat.rect)
-            if score != 0 and score % 5 == 0:
-                speed += ACCELERATION
-        if score >= BOSS_LEVEL_TRESHOLD:
+        else:
             dog.add()
             game_over = dog.move(speed, screen, cat.rect, game_over)
+        if score != 0 and score % 5 == 0 and flag:
+            speed += ACCELERATION
+            flag = False
             
-            cheese.add()  
-            score += cheese.move(screen, speed, cat.rect)
+        cheese.add()  
+        (s, flag) = cheese.move(screen, speed, cat.rect)
+        score += s
             
     cat.draw(screen)  
 
