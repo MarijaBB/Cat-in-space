@@ -20,18 +20,18 @@ class Boss:
             self.bosses.append((self.image, rect))
        
     def move(self, speed, screen, cat_rect, game_over) -> int:
-        for image, f in self.bosses[:]:
-            f.x -= speed
+        for image, r in self.bosses[:]:
+            r.x -= speed
             boss_speed_y = 0.7
-            if f.centery < cat_rect.centery:
-                f.y += boss_speed_y
-            elif f.centery > cat_rect.centery:
-                f.y -= boss_speed_y
+            if r.centery < cat_rect.centery:
+                r.y += boss_speed_y
+            elif r.centery > cat_rect.centery:
+                r.y -= boss_speed_y
                 
-            screen.blit(image, f)  
-            if f.colliderect(cat_rect):
+            screen.blit(image, r)  
+            if r.colliderect(cat_rect):
                 self.sound.play()
                 game_over = True
-            if f.right < 0:
-                self.bosses.remove((image, f))
+            if r.right < 0:
+                self.bosses.remove((image, r))
         return game_over

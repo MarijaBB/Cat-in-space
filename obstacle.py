@@ -11,13 +11,13 @@ class Obstacle:
             
         for file in os.listdir(directory):
             filename = os.fsdecode(file)
-            if filename.startswith("planet"): 
+            if filename.startswith(OBSTACES_FILE_NAME): 
                 planet_image = pygame.image.load(f"assets/images/{filename}")
                 planet_image = pygame.transform.scale(planet_image, OBSTACLE_SIZE)
                 self.images.append(planet_image)
         self.timer = 0
         self.obstacles = []
-        self.sound = pygame.mixer.Sound("assets/sounds/Nudge.ogg")
+        self.sound = pygame.mixer.Sound(END_SOUND)
 
     def add(self):
         self.timer += 1

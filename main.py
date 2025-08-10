@@ -14,15 +14,15 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
-background = Background(pygame.image.load("assets/images/background.jpg"))
+background = Background(pygame.image.load(BACKGROUND_IMAGE))
 
-cat = Cat(pygame.image.load("assets/images/cat.png"))
+cat = Cat(pygame.image.load(CAT_IMAGE))
 
-planet = Obstacle("assets/images")
+planet = Obstacle(OBSTACLES_FOLDER)
         
-cheese = Cheese(pygame.image.load("assets/images/cheese.png"))
+cheese = Cheese(pygame.image.load(CHEESE_IMAGE))
 
-dog = Boss(pygame.image.load("assets/images/dog.png"))
+dog = Boss(pygame.image.load(BOSS_IMAGE))
 
 score = 0
 

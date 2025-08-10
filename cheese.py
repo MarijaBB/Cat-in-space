@@ -7,7 +7,7 @@ class Cheese:
         self.image = pygame.transform.scale(image, CHEESE_SIZE)
         self.timer = 0
         self.cheeses = []
-        self.sound = pygame.mixer.Sound("assets/sounds/Tones.ogg")
+        self.sound = pygame.mixer.Sound(EAT_SOUND)
         
     def add(self):         
         self.timer += 1
