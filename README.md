@@ -20,9 +20,10 @@ You play as a cat in astronomer's suit floating through space. Avoid planets and
 1. Download the ZIP file from the repository.
 2. Extract the contents to any folder on your computer.
 3. Run the game in one of two ways:
-- Option 1: Double-click main.exe to start playing immediately.
-- Option 2: Open a terminal/command prompt in the extracted folder and run:
-python main.py
+- Option 1: Double-click main.exe to start playing immediately. (for Windows OS)
+- Option 2: Open a terminal/command prompt in the extracted folder and run:<br>
+`pip install pygame`<br>
+`python main.py`
 
 ## Technologies
 - Python	- the main programming language used for game development
